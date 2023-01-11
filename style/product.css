@@ -1,0 +1,6 @@
+/* 隱藏input type=number的箭頭 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
