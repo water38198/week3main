@@ -43,7 +43,7 @@ const app = {
         },
         getProductData() {
             axios
-                .get(`${url}/v2/api/${api_path}/admin/products`)
+                .get(`${url}/v2/api/${api_path}/admin/products/all`)
                 .then((res) => {
                     this.productList = res.data.products;
                 })
@@ -52,7 +52,7 @@ const app = {
                 });
         },
         confirmProduct() {
-            console.log(this.tempProduct);
+            // 如果是新增產品，用post
             if (this.isNew) {
                 axios
                     .post(`${url}/v2/api/${api_path}/admin/product`, {
@@ -63,7 +63,7 @@ const app = {
                         if (success) {
                             alert("新增成功");
                             productModal.hide();
-                            this.getProductData;
+                            this.getProductData();
                         } else {
                             alert("資料錯誤");
                         }
@@ -73,6 +73,7 @@ const app = {
                         alert("資料錯誤");
                     });
             } else {
+                //如果是編輯產品，改成用put
                 axios
                     .put(
                         `${url}/v2/api/${api_path}/admin/product/${this.tempProduct.id}`,
@@ -83,6 +84,7 @@ const app = {
                     .then((res) => {
                         alert(res.data.message);
                         this.getProductData();
+                        //關閉modal
                         productModal.hide();
                     })
                     .catch((err) => {
@@ -93,7 +95,6 @@ const app = {
         editProduct(product) {
             this.isNew = false;
             this.tempProduct = { ...product };
-            console.log(this.tempProduct);
         },
         createNewProduct() {
             this.isNew = true;
