@@ -1,19 +1,25 @@
 const url = "https://vue3-course-api.hexschool.io/";
 const api_path = "payroom";
+let productModal = null;
 const app = {
     data() {
         return {
             myToken: "",
             productList: [],
-            tempProduct: {},
+            tempProduct: {
+                imagesUrl: [],
+            },
+            isNew: true,
         };
     },
     created() {
+        //取出Token
         this.myToken = document.cookie.replace(
             /(?:(?:^|.*;\s*)myToken\s*\=\s*([^;]*).*$)|^.*$/,
             "$1"
         );
         axios.defaults.headers.common["Authorization"] = this.myToken;
+        //檢查是否登入
         this.isLogin();
     },
     methods: {
@@ -40,7 +46,6 @@ const app = {
                 .get(`${url}/v2/api/${api_path}/admin/products`)
                 .then((res) => {
                     this.productList = res.data.products;
-                    console.log(this.productList);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -48,11 +53,72 @@ const app = {
         },
         confirmProduct() {
             console.log(this.tempProduct);
+            if (this.isNew) {
+                axios
+                    .post(`${url}/v2/api/${api_path}/admin/product`, {
+                        data: this.tempProduct,
+                    })
+                    .then((res) => {
+                        const { success } = res.data;
+                        if (success) {
+                            alert("新增成功");
+                            productModal.hide();
+                            this.getProductData;
+                        } else {
+                            alert("資料錯誤");
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        alert("資料錯誤");
+                    });
+            } else {
+                axios
+                    .put(
+                        `${url}/v2/api/${api_path}/admin/product/${this.tempProduct.id}`,
+                        {
+                            data: this.tempProduct,
+                        }
+                    )
+                    .then((res) => {
+                        alert(res.data.message);
+                        this.getProductData();
+                        productModal.hide();
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
         },
         editProduct(product) {
+            this.isNew = false;
             this.tempProduct = { ...product };
             console.log(this.tempProduct);
         },
+        createNewProduct() {
+            this.isNew = true;
+            this.tempProduct = { imagesUrl: [] };
+        },
+        removeProduct(id) {
+            axios
+                .delete(`${url}/v2/api/${api_path}/admin/product/${id}`)
+                .then((res) => {
+                    alert(res.data.message);
+                    this.getProductData();
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+    },
+    mounted() {
+        // 抓取Modal的DOM，這樣確認之後才會自動關閉(productModal.hide())
+        productModal = new bootstrap.Modal(
+            document.getElementById("productModal"),
+            {
+                keyboard: false,
+            }
+        );
     },
 };
 Vue.createApp(app).mount("#productApp");
