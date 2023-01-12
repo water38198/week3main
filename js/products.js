@@ -52,6 +52,9 @@ const app = {
                 });
         },
         confirmProduct() {
+            this.tempProduct.imagesUrl = this.tempProduct.imagesUrl.filter(
+                (image) => image
+            );
             // 如果是新增產品，用post
             if (this.isNew) {
                 axios

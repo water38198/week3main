@@ -58,7 +58,6 @@
                                         data-bs-toggle="modal" data-bs-target="#productModal" type="button">編輯</button>
                                     <button class="btn btn-outline-danger btn-sm" @click="removeProduct(product.id)"
                                         type="button">刪除</button>
-
                                 </td>
                             </tr>
                         </template>
@@ -73,8 +72,9 @@
             <div class="modal-dialog  modal-dialog-centered modal-xl">
                 <div class="modal-content">
                     <div class="modal-header bg-light">
-                        <h5 class="modal-title" id="productModalLabel"><span v-if="isNew">新增產品</span><span
-                                v-else>編輯產品</span>
+                        <h5 class="modal-title" id="productModalLabel">
+                            <span v-if="isNew">新增產品</span>
+                            <span v-else>編輯產品</span>
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -89,11 +89,11 @@
                                 </div>
                                 <div>
                                     <h4>多圖新增</h4>
-
                                     <div v-if="Array.isArray(tempProduct.imagesUrl)">
                                         <div v-for="(image, key) in tempProduct.imagesUrl" :key="key" class="mb-2">
                                             <div class="d-flex justify-content-space-between">
                                                 <label :for="image" class="form-label">圖片網址{{key+1}}</label>
+                                                <!-- 刪除多圖的按鈕 -->
                                                 <button type="button" class="btn-close btn-sm ms-auto"
                                                     aria-label="removeImage"
                                                     @click="tempProduct.imagesUrl.splice(key,1)"></button>
