@@ -52,6 +52,7 @@ const app = {
                 });
         },
         confirmProduct() {
+            // 將空的網址移除
             this.tempProduct.imagesUrl = this.tempProduct.imagesUrl.filter(
                 (image) => image
             );
