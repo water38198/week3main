@@ -56,8 +56,9 @@
                                 <td>
                                     <button class="btn btn-outline-primary btn-sm me-2" @click="editProduct(product)"
                                         data-bs-toggle="modal" data-bs-target="#productModal" type="button">編輯</button>
-                                    <button class="btn btn-outline-danger btn-sm" @click="removeProduct(product.id)"
-                                        type="button">刪除</button>
+                                    <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal" type="button"
+                                        @click="deleteId = product.id">刪除</button>
                                 </td>
                             </tr>
                         </template>
@@ -66,7 +67,7 @@
             </div>
 
         </div>
-        <!-- Modal -->
+        <!-- productModal -->
         <div class="modal fade" id="productModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="productModalLabel" aria-hidden="true">
             <div class="modal-dialog  modal-dialog-centered modal-xl">
@@ -158,6 +159,27 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
                         <button type="button" class="btn btn-primary" @click="confirmProduct">確認</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- deleteModal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">確認刪除</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            @click="deleteId=''"></button>
+                    </div>
+                    <div class="modal-body">
+                        您確定要刪除此產品嗎?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            @click="deleteId=''">取消</button>
+                        <button type="button" class="btn btn-outline-danger" @click="removeProduct">刪除</button>
                     </div>
                 </div>
             </div>

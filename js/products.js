@@ -1,6 +1,7 @@
 const url = "https://vue3-course-api.hexschool.io/";
 const api_path = "payroom";
 let productModal = null;
+let deleteModal = null;
 const app = {
     data() {
         return {
@@ -10,6 +11,7 @@ const app = {
                 imagesUrl: [],
             },
             isNew: true,
+            deleteId: "",
         };
     },
     created() {
@@ -103,12 +105,16 @@ const app = {
             this.isNew = true;
             this.tempProduct = { imagesUrl: [] };
         },
-        removeProduct(id) {
+        removeProduct() {
             axios
-                .delete(`${url}/v2/api/${api_path}/admin/product/${id}`)
+                .delete(
+                    `${url}/v2/api/${api_path}/admin/product/${this.deleteId}`
+                )
                 .then((res) => {
                     alert(res.data.message);
                     this.getProductData();
+                    this.deleteId = "";
+                    deleteModal.hide();
                 })
                 .catch((err) => {
                     console.log(err);
@@ -129,6 +135,12 @@ const app = {
         // 抓取Modal的DOM，這樣確認之後才會自動關閉(productModal.hide())
         productModal = new bootstrap.Modal(
             document.getElementById("productModal"),
+            {
+                keyboard: false,
+            }
+        );
+        deleteModal = new bootstrap.Modal(
+            document.getElementById("deleteModal"),
             {
                 keyboard: false,
             }
