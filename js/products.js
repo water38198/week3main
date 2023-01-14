@@ -69,12 +69,11 @@ const app = {
                             productModal.hide();
                             this.getProductData();
                         } else {
-                            alert("資料錯誤");
+                            alert(res.data.message);
                         }
                     })
                     .catch((err) => {
                         console.log(err);
-                        alert("資料錯誤");
                     });
             } else {
                 //如果是編輯產品，改成用put
@@ -114,6 +113,16 @@ const app = {
                 .catch((err) => {
                     console.log(err);
                 });
+        },
+        addNewPhoto() {
+            // 如果新增的圖片網址為空，則不能再新增新的input
+            if (
+                this.tempProduct.imagesUrl[
+                    this.tempProduct.imagesUrl.length - 1
+                ] !== ""
+            ) {
+                this.tempProduct.imagesUrl.push("");
+            }
         },
     },
     mounted() {
