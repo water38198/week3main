@@ -1,4 +1,4 @@
-const url = "https://vue3-course-api.hexschool.io/";
+const url = "https://vue3-course-api.hexschool.io";
 const api_path = "payroom";
 let productModal = null;
 let deleteModal = null;
@@ -65,17 +65,13 @@ const app = {
                         data: this.tempProduct,
                     })
                     .then((res) => {
-                        const { success } = res.data;
-                        if (success) {
-                            alert("新增成功");
-                            productModal.hide();
-                            this.getProductData();
-                        } else {
-                            alert(res.data.message);
-                        }
+                        alert("新增成功");
+                        productModal.hide();
+                        this.getProductData();
                     })
                     .catch((err) => {
                         console.log(err);
+                        alert(err.response.data.message);
                     });
             } else {
                 //如果是編輯產品，改成用put

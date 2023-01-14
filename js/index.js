@@ -1,4 +1,4 @@
-const url = "https://vue3-course-api.hexschool.io/";
+const url = "https://vue3-course-api.hexschool.io";
 
 const app = {
     data() {
