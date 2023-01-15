@@ -60,12 +60,11 @@ const app = {
                         data: this.tempProduct,
                     })
                     .then((res) => {
-                        alert("新增成功");
+                        alert(response.data.message);
                         productModal.hide();
                         this.getProductData();
                     })
                     .catch((err) => {
-                        console.log(err);
                         alert(err.response.data.message);
                     });
             } else {
@@ -109,6 +108,18 @@ const app = {
                 .catch((err) => {
                     console.log(err);
                 });
+        },
+        createImages() {
+            if (this.tempProduct.hasOwnProperty("imagesUrl")) {
+                !this.tempProduct.imagesUrl.length ||
+                this.tempProduct.imagesUrl[
+                    this.tempProduct.imagesUrl.length - 1
+                ]
+                    ? this.tempProduct.imagesUrl.push("")
+                    : alert("請先填寫網址");
+            } else {
+                this.tempProduct.imagesUrl = [];
+            }
         },
     },
     mounted() {

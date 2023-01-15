@@ -104,8 +104,10 @@
                                             <img :src="image" alt="" class="img-fluid">
                                         </div>
                                     </div>
-                                    <button class="btn btn-outline-primary w-100 mb-3" type="button"
-                                        @click="tempProduct.imagesUrl.push('')">新增圖片</button>
+                                    <div>
+                                        <button class="btn btn-outline-primary w-100 mb-3" type="button"
+                                            @click="createImages">新增圖片</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class=" col-8">
