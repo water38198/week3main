@@ -58,7 +58,7 @@
                                         data-bs-toggle="modal" data-bs-target="#productModal" type="button">編輯</button>
                                     <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#deleteModal" type="button"
-                                        @click="deleteId = product.id">刪除</button>
+                                        @click="tempProduct = {...product}">刪除</button>
                                 </td>
                             </tr>
                         </template>
@@ -105,11 +105,10 @@
                                         </div>
                                     </div>
                                     <button class="btn btn-outline-primary w-100 mb-3" type="button"
-                                        @click="tempProduct.imagesUrl.push('')"
-                                        v-if="tempProduct.imagesUrl[this.tempProduct.imagesUrl.length - 1] !== ''">新增圖片</button>
+                                        @click="tempProduct.imagesUrl.push('')">新增圖片</button>
                                 </div>
                             </div>
-                            <div class="col-8">
+                            <div class=" col-8">
                                 <div class="row gy-3">
                                     <div class="col-12">
                                         <label for="productTitle" class="form-label">標題</label>

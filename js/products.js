@@ -11,7 +11,6 @@ const app = {
                 imagesUrl: [],
             },
             isNew: true,
-            deleteId: "",
         };
     },
     created() {
@@ -54,10 +53,6 @@ const app = {
                 });
         },
         confirmProduct() {
-            // 將空的網址移除
-            this.tempProduct.imagesUrl = this.tempProduct.imagesUrl.filter(
-                (image) => image
-            );
             // 如果是新增產品，用post
             if (this.isNew) {
                 axios
@@ -104,12 +99,11 @@ const app = {
         removeProduct() {
             axios
                 .delete(
-                    `${url}/v2/api/${api_path}/admin/product/${this.deleteId}`
+                    `${url}/v2/api/${api_path}/admin/product/${this.tempProduct.id}`
                 )
                 .then((res) => {
                     alert(res.data.message);
                     this.getProductData();
-                    this.deleteId = "";
                     deleteModal.hide();
                 })
                 .catch((err) => {
