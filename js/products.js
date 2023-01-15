@@ -116,16 +116,6 @@ const app = {
                     console.log(err);
                 });
         },
-        addNewPhoto() {
-            // 如果新增的圖片網址為空，則不能再新增新的input
-            if (
-                this.tempProduct.imagesUrl[
-                    this.tempProduct.imagesUrl.length - 1
-                ] !== ""
-            ) {
-                this.tempProduct.imagesUrl.push("");
-            }
-        },
     },
     mounted() {
         // 抓取Modal的DOM，這樣確認之後才會自動關閉(productModal.hide())
